@@ -1,0 +1,21 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@2.0.3
+jobs:
+  create-infrastructure:
+    docker:
+      - image: ubuntu/awscli
+    steps:
+      - checkout
+      - run:
+          name: Create Cloudformation Stack
+          command:
+            aws cloudformation deploy \
+            --template-file instance.yml \
+            --stack-name kelly-${CIRCLE_WORKFLOW_ID:0;5}
+            --region us-east-1
+
+workflows:
+  run-workflow:
+    jobs:
+      - create-infrastructure
