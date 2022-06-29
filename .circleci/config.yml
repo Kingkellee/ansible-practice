@@ -4,12 +4,12 @@ orbs:
 jobs:
   create-infrastructure:
     docker:
-      - image: amazon/awscli
+      - image: amazon/aws-cli
     steps:
       - checkout
       - run:
           name: Create Cloudformation Stack
-          command:
+          command: |
             aws cloudformation deploy \
             --template-file instance.yml \
             --stack-name kelly-${CIRCLE_WORKFLOW_ID:0;5}
