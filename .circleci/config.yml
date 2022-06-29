@@ -4,7 +4,7 @@ orbs:
 jobs:
   create-infrastructure:
     docker:
-      - image: ubuntu/awscli
+      - image: amazon/awscli
     steps:
       - checkout
       - run:
