@@ -2,17 +2,17 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
 jobs:
-  # create-infrastructure:
-  #   docker:
-  #     - image: amazon/aws-cli
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Create Cloudformation Stack
-  #         command: |
-  #           aws cloudformation deploy \
-  #           --template-file template.yml \
-  #           --stack-name kelly-${CIRCLE_WORKFLOW_ID:0:5}
+  create-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+            --template-file template.yml \
+            --stack-name kelly-${CIRCLE_WORKFLOW_ID:0:5}
 
   configure-infrastructure:
     docker:
@@ -28,8 +28,32 @@ jobs:
           command: |
             ansible-playbook -i inventory.txt main.yml
 
+  smoke-test:
+    docker:
+      - image: alpine: latest
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            apk add --update curl
+      - run: 
+          name: smoke test
+          command: |
+            URL="https://blog.udacity.com/"
+            # Test if website exists
+            if curl -s --head ${URL} 
+            then
+              return 0
+            else
+              return 1
+            fi
+
+
+
 workflows:
   run-workflow:
     jobs:
       # - create-infrastructure
-      - configure-infrastructure
+      # - configure-infrastructure
+      - smoke-test
