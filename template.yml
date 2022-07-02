@@ -1,6 +1,6 @@
 #Excercise Create Infrastructure
 AWSTemplateFormatVersion: 2010-09-09
-Description:
+Description: create-infrastructure
 Resources:
   EC2Instance:
     Type: 'AWS::EC2::Instance'
