@@ -139,9 +139,9 @@ workflows:
       - create-and-deploy-frontend
       - promote-to-production:
           requires: 
-            - create-and-deploy-front_end
+            - create-and-deploy-frontend
       - get-last-deployment-id
-      - clean-up-old-front-end:
+      - clean-up-old-frontend:
           requires:
             - get-last-deployment-id
             - promote-to-production
