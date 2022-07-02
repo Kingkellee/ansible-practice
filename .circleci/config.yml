@@ -136,12 +136,12 @@ workflows:
       # - create-infrastructure
       # - configure-infrastructure
       # - smoke-test
-      - create_and_deploy_front_end
-      - promote_to_production:
+      - create-and-deploy-frontend
+      - promote-to-production:
           requires: 
-            - create_and_deploy_front_end
-      - get_last_deployment_id
-      - clean_up_old_front_end:
+            - create-and-deploy-front_end
+      - get-last-deployment-id
+      - clean-up-old-front-end:
           requires:
-            - get_last_deployment_id
-            - promote_to_production
+            - get-last-deployment-id
+            - promote-to-production
