@@ -26,7 +26,7 @@ jobs:
       - run:
           name: configure instance
           command: |
-            ansible-playbook -i inventory.txt playbook.yml
+            ansible-playbook -i inventory.txt main.yml
 
 workflows:
   run-workflow:
